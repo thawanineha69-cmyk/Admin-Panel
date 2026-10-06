@@ -21,13 +21,16 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
+          cache-dependency-path: Shopzzo/package-lock.json
 
       - name: Install dependencies
+        working-directory: ./Shopzzo
         run: npm ci
 
       - name: Build
+        working-directory: ./Shopzzo
         run: npm run build
 
       - name: Setup Pages
@@ -36,8 +39,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./Shopzzo/dist
 
       - name: Deploy
-        id: deployment
         uses: actions/deploy-pages@v4
